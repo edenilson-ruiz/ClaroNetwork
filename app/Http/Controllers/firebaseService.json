@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "networkmonitor-93124",
+  "private_key_id": "5ce3b87d6a37ff106cb52ae29330d0a02bdd9377",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRAGL66QVbsKwz\nokTl69ck2rjAqUc2k2+3pp9Qj6NG1b8P+kiIhvwAr+3LC0NHfmZhwuzSUPfCc2gv\nzTCHMz9jzZucyc0qgWqo0DEtHZS5Nrpe/zMwOQu2pXdFSwTOkSv/4gEhnOIsc+ht\nPW8+A7ZlEEAjIOF2Oso0+7zt0BaGHwMtCVhwIuLvJ9gA0Q8Ugy08fuIyM1RdIxpw\nr+APneQ2tlBSicsyYdZF4DDpq18YvyyiuHHEGzTiy/71iUycHBNeLaBgxBEZ+5y6\nckSdSgUwHjEcJ6uZDxL+fCxpCuE5KdenhAogQ4nVC64Gh375KqEjmt2r5KJqugcw\nKQiillzFAgMBAAECggEARnRPaY7Y4A5gFm3atPk6RvG2ezf1SigMbofsR7+MBopy\nhIPWJLQASokD68EJtpWdFNKde86QnsvBsO+GLuVvNokurn12vJ/w4SSBl1hT9NXG\noNR9oIFyeekwmjrOTYYxo2pAAGE++0Y9cWnW0Lx2pX4DaPQiHPV3icHc7/wIQ8Cf\njrH+Na9kKGw8J3apkg4NTSaBnQN5L0MVBjqdNbq6GUneFyCrgfYHer3CigO3j9GQ\nHiG10mDQePoDn8xnSpORxZMwzV7hiyOpzYSsl7oFR/TEczL0xxTgfEyKbBb7l/pX\nGLgFpj/A9fAKc6pAT1aKofY/diOnQrR7GMHzY/aNVwKBgQDufj43F3DKkDmYoQSo\nqGDLyYBjxYyJSSn85T+wrCZBlMPXX9xyxvu9LZb24R38aD5Cf98huMfpX+UX1Lvl\niQMUMEPEK7DTo3nPGqblFWnqCrFDFhlRfAChhE10EDEtITteSu/xhuVeWQ3EiMSM\nHTZCWzqI8GFOKwlmmxV+h9dtfwKBgQDgV/AOLa5iF/OoeMoQlZxghRQwS2Tc8wDP\n5GyGLQ7rdHjKwbvUEF8laM5Iyvp3A4cQBQkuiCDlcC6p+IGJjE5WIxvFA5IUVRSA\n4geXxcT9qWWIO35aRnmDJvWx20JDMJLMLYaHSu6l4GkMAipVewgNXLMSzNLYO9Ka\nwze/x4kfuwKBgFJZKthQ8rQuyoRmDLrDsPCMuhU5MAZzSdk1uyEgv/DjEiA6zF6h\nUGkI5diG8Jin0d+aUYxORlDRuMPaw6pE/dgptix1PZBGIRgexsPQ+gpC+OQGLGXT\nYFBk422Q7bn8gIhVbbZC8s36B+P1qZALwiF1aKfCAIdCGvPf1rMi6oK3AoGAMFoj\nrhqgZBn/dQcbnflw68ii8km9onVpbmUwErcxaQQAaMranbktmJV/KGc/FlmXSZec\nRAAo/upv1EhwOuIXnC8S9CJx4Jn5wlF1C3wfmgBhlrwj3nckB2VlPQEhxfN5IDKL\ntSssRmoYmfL5htTuhlq9acblhp9WI+8BW/84ibMCgYEAmdDUwkdcuE1+MU1IeTB3\nlFmYGEaEjYfmVziqsaiKDzt9unk2mYaDyG0xJ411SFiQ/dXSkIeGzLUxJ8z4Df6c\nNfrFF6jRPaelwJtcRXmemJqTcTm1cBuoyHbHO9gSwCITSGKpzjjWtjtTKimPSqiV\nkOsoQv8M9XXYVrQHzQ3uOpE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-5kszk@networkmonitor-93124.iam.gserviceaccount.com",
+  "client_id": "115670048378968941649",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-5kszk%40networkmonitor-93124.iam.gserviceaccount.com"
+}

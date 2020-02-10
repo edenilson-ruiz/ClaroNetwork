@@ -45,7 +45,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Monitoreando la red | 
+                <div class="card-header">Monitoreando la red |
                   @if ($tipoRed == "2G")
                     <img src="{{ url('img/icon_2g.jpeg')}}"/>
                   @elseif ($tipoRed == "3G")
@@ -77,7 +77,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($stats as $stat)                        
+                        @foreach($stats as $stat)
                         <tr>
                           <th>{{ $stat->departamento }}</th>
                           <th>{{ $stat->municipio }}</th>
@@ -86,7 +86,7 @@
                           <th>{{ $stat->avg_bars }}</th>
                           <th>{{ $stat->avg_signal }}</th>
                         </tr>
-                        @endforeach                            
+                        @endforeach
                       </tbody>
                     </table>
                     <div>
@@ -97,8 +97,8 @@
         </div>
     </div>
 </div>
-@endsection 
-    
+@endsection
+
 @section('scripts')
   <script>
           var map;
@@ -170,7 +170,7 @@
                             '</tr>' +
                             '<tr>' +
                               '<th>Velocidad de bajada</th>' +
-                              '<td>9.32 Mbps</td>' +
+                              '<td>'+ markersOnMap[i].download_speed +'</td>' +
                             '</tr>' +
                             '<tr>' +
                               '<th>Velocidad de subida</th>' +
@@ -183,7 +183,7 @@
                             '<tr>' +
                               '<th>Longitud</th>' +
                               '<td>'+ markersOnMap[i].device_longitude +'</td>' +
-                            '</tr>' +                         
+                            '</tr>' +
                           '</table></div>';
 
                   const marker = new google.maps.Marker({
@@ -192,7 +192,7 @@
                       /*icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         scale: 10
-                      },*/ 
+                      },*/
                       icon : '{{ url('img/') }}'+iconShape,
                       map: map
                   });
@@ -239,11 +239,7 @@
               });
               addMarkerInfo();
               var geocoder = new google.maps.Geocoder;
-              var infowindow = new google.maps.InfoWindow;
-
-              document.getElementById('submit').addEventListener('click', function() {
-                geocodeLatLng(geocoder, map, infowindow);
-              });
+              var infowindow = new google.maps.InfoWindow;            
           }
 
           function geocodeLatLng(geocoder, map, infowindow) {

@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 
 class NetworkMonitorController extends Controller
 {
-    
+
 	public function index()
 	{
 		$data = $this->getData("nm3g");
@@ -28,6 +28,7 @@ class NetworkMonitorController extends Controller
 			DB::raw('AVG(cell_signal_strength) as avg_bars'),
 			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
 		)->groupBy('departamento','municipio','mobile_data_network_type')
+     ->distinct()
 		 ->get();
 
 		//dd($stats);
@@ -45,21 +46,24 @@ class NetworkMonitorController extends Controller
 		$data = $this->getData("nm2g");
 		$tipoRed = "2G";
 
-		$stats = Datapoint::select(
+    $stats = Datapoint::select(
 			'departamento',
 			'municipio',
+			'mobile_data_network_type',
 			DB::raw('count(*) as count'),
-			DB::raw('avg(cell_signal_strength_dbm) as avg_signal')
-		)->groupBy('departamento','municipio')
-		->get();
+			DB::raw('AVG(cell_signal_strength) as avg_bars'),
+			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
+		)->groupBy('departamento','municipio','mobile_data_network_type')
+     ->distinct()
+		 ->get();
 
-		dd($stats);
+		//dd($stats);
 
 		//dd($records);
 		//dd($data);
 		//$data_json =  json_encode($data);
 
-		return view('monitor.map',compact(['data','tipoRed']));
+		return view('monitor.map',compact(['data','tipoRed','stats']));
 
 	}
 
@@ -68,11 +72,22 @@ class NetworkMonitorController extends Controller
 		$data = $this->getData("nmlte");
 		$tipoRed = "LTE";
 
+    $stats = Datapoint::select(
+			'departamento',
+			'municipio',
+			'mobile_data_network_type',
+			DB::raw('count(*) as count'),
+			DB::raw('AVG(cell_signal_strength) as avg_bars'),
+			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
+		)->groupBy('departamento','municipio','mobile_data_network_type')
+     ->distinct()
+		 ->get();
+
 		//dd($records);
 		//dd($data);
 		//$data_json =  json_encode($data);
 
-		return view('monitor.map',compact(['data','tipoRed']));
+		return view('monitor.map',compact(['data','tipoRed','stats']));
 
 	}
 
@@ -81,11 +96,22 @@ class NetworkMonitorController extends Controller
 		$data = $this->getData("nmwifi");
 		$tipoRed = "WiFi";
 
+    $stats = Datapoint::select(
+			'departamento',
+			'municipio',
+			'mobile_data_network_type',
+			DB::raw('count(*) as count'),
+			DB::raw('AVG(cell_signal_strength) as avg_bars'),
+			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
+		)->groupBy('departamento','municipio','mobile_data_network_type')
+     ->distinct()
+		 ->get();
+
 		//dd($records);
 		//dd($data);
 		//$data_json =  json_encode($data);
 
-		return view('monitor.map',compact(['data','tipoRed']));
+		return view('monitor.map',compact(['data','tipoRed','stats']));
 
 	}
 
@@ -100,15 +126,15 @@ class NetworkMonitorController extends Controller
 
 		$database = $factory->createDatabase();
 
-		$ref = $database->getReference($network_type)			
-			->orderByKey()
-			//->orderByChild('cell_signal_strength_dbm')
-			->limitToLast(100);
-    		// returns all persons taller than or exactly 1.68 (meters)
-    		
+		$ref = $database->getReference($network_type);
+      /*->orderByKey()
+      ->limitToFirst(100)
+      ->getSnapshot();*/
 
-		$networkValues = $ref->getValue();	
-		
+		$networkValues = $ref->getValue();
+
+    //dd($networkValues);
+
 		$all_rows = [];
 		$datapoint = new Datapoint();
 		$datapoint->truncate();
@@ -151,9 +177,9 @@ class NetworkMonitorController extends Controller
 						);
 
 		foreach ($networkValues as $value) {
-			
+
 			$all_values[] = $value;
-			
+
 			//dd($value);
 			//$address_geocoding = $this->getAddress($value['device_latitude'],$value['device_longitude']);
 			$address_geocoding = 'La Libertad, Santa Tecla';
@@ -162,7 +188,7 @@ class NetworkMonitorController extends Controller
 
 			$departamento = $address_parts[0];
 			$municipio = $address_parts[1];
-			//$keys_array[] = $key;			
+			//$keys_array[] = $key;
 
 			if(array_key_exists('cell_asu_level', $value) &&
 			   array_key_exists('cell_signal_strength', $value) &&
@@ -191,15 +217,15 @@ class NetworkMonitorController extends Controller
 			   array_key_exists('timestamp', $value) &&
 			   array_key_exists('uid', $value)
 		    ) {
-				
+
 				$cell_signal_strength_dbm = $value['cell_signal_strength_dbm'];
-				
+
 				if ( $cell_signal_strength_dbm == '' ||  is_null($cell_signal_strength_dbm) )
 				{
 					$cell_signal_strength_dbm = 0;
 				}
 
-				
+
 				$records[] = [
 					'cell_asu_level' => $value['cell_asu_level'],
 					'cell_signal_strength' => $value['cell_signal_strength'],
@@ -238,7 +264,7 @@ class NetworkMonitorController extends Controller
 					'municipio' => $municipio,
 					'created_at' => Carbon::now()
 				];
-				
+
 				/*
 				$obj->cell_asu_level = $value['cell_asu_level'];
 				$obj->cell_signal_strength = $value['cell_signal_strength'];
@@ -278,10 +304,10 @@ class NetworkMonitorController extends Controller
 
 			//$records = $record;
 		}
-		
+
 		//dd($records);
-		Datapoint::insert($records);		
-		//$data = collect($all_values);		
+		Datapoint::insert($records);
+		//$data = collect($all_values);
 		$data = $all_values;
 
 		//dd($data);
@@ -313,5 +339,5 @@ class NetworkMonitorController extends Controller
 	      return false;
 	    }
 	}
-    
+
 }

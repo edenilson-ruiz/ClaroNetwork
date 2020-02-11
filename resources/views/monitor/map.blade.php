@@ -203,21 +203,20 @@
                   });
 
                   marker.addListener('click', function () {
-                      closeOtherInfo();
-                      infowindow.open(marker.get('map'), marker);
-                      //marker.setIcon('{{ url('img/marker-green.png') }}');
-                      InforObj[0] = infowindow;
+                    closeOtherInfo();
+                    infowindow.open(marker.get('map'), marker);                    
+                    InforObj[0] = infowindow;
                   });
-                  // marker.addListener('mouseover', function () {
-                  //     closeOtherInfo();
-                  //     infowindow.open(marker.get('map'), marker);
-                  //     InforObj[0] = infowindow;
-                  // });
-                  // marker.addListener('mouseout', function () {
-                  //     closeOtherInfo();
-                  //     infowindow.close();
-                  //     InforObj[0] = infowindow;
-                  // });
+                  marker.addListener('mouseover', function () {
+                       closeOtherInfo();
+                       infowindow.open(marker.get('map'), marker);
+                       InforObj[0] = infowindow;
+                  });
+                  marker.addListener('mouseout', function () {
+                       closeOtherInfo();
+                       infowindow.close();
+                       InforObj[0] = infowindow;
+                  });
               }
           }
 

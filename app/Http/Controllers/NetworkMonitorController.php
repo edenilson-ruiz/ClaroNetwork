@@ -19,100 +19,52 @@ class NetworkMonitorController extends Controller
 	{
 		$data = $this->getData("nm3g");
 		$tipoRed = "3G";
-
-		$stats = Datapoint::select(
-			'departamento',
-			'municipio',
-			'mobile_data_network_type',
-			DB::raw('count(*) as count'),
-			DB::raw('AVG(cell_signal_strength) as avg_bars'),
-			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
-		)->groupBy('departamento','municipio','mobile_data_network_type')
-     ->distinct()
-		 ->get();
-
-		//dd($stats);
-
-		//dd($records);
-		//dd($data);
-		//$data_json =  json_encode($data);
+		$stats = $this->selectDatapoints();
 
 		return view('monitor.map',compact(['data','tipoRed','stats']));
-
 	}
 
 	public function showData2g()
 	{
 		$data = $this->getData("nm2g");
 		$tipoRed = "2G";
-
-    $stats = Datapoint::select(
-			'departamento',
-			'municipio',
-			'mobile_data_network_type',
-			DB::raw('count(*) as count'),
-			DB::raw('AVG(cell_signal_strength) as avg_bars'),
-			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
-		)->groupBy('departamento','municipio','mobile_data_network_type')
-     ->distinct()
-		 ->get();
-
-		//dd($stats);
-
-		//dd($records);
-		//dd($data);
-		//$data_json =  json_encode($data);
+    	$stats = $this->selectDatapoints();
 
 		return view('monitor.map',compact(['data','tipoRed','stats']));
-
 	}
 
 	public function showDataLte()
 	{
 		$data = $this->getData("nmlte");
 		$tipoRed = "LTE";
-
-    $stats = Datapoint::select(
-			'departamento',
-			'municipio',
-			'mobile_data_network_type',
-			DB::raw('count(*) as count'),
-			DB::raw('AVG(cell_signal_strength) as avg_bars'),
-			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
-		)->groupBy('departamento','municipio','mobile_data_network_type')
-     ->distinct()
-		 ->get();
-
-		//dd($records);
-		//dd($data);
-		//$data_json =  json_encode($data);
+    	$stats = $this->selectDatapoints();
 
 		return view('monitor.map',compact(['data','tipoRed','stats']));
-
 	}
 
 	public function showDataWifi()
 	{
 		$data = $this->getData("nmwifi");
 		$tipoRed = "WiFi";
-
-    $stats = Datapoint::select(
-			'departamento',
-			'municipio',
-			'mobile_data_network_type',
-			DB::raw('count(*) as count'),
-			DB::raw('AVG(cell_signal_strength) as avg_bars'),
-			DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
-		)->groupBy('departamento','municipio','mobile_data_network_type')
-     ->distinct()
-		 ->get();
-
-		//dd($records);
-		//dd($data);
-		//$data_json =  json_encode($data);
-
+		$stats = $this->selectDatapoints();
+		
 		return view('monitor.map',compact(['data','tipoRed','stats']));
+	}
 
+	public function selectDatapoints()
+	{
+		$stmt = Datapoint::select(
+					'departamento',
+					'municipio',
+					'mobile_data_network_type',
+					DB::raw('count(*) as count'),
+					DB::raw('AVG(cell_signal_strength) as avg_bars'),
+					DB::raw('AVG(cell_signal_strength_dbm) as avg_signal')
+				)->groupBy('departamento','municipio','mobile_data_network_type')
+		     	 ->distinct()
+				 ->get();
+
+		return $stmt;
 	}
 
 	public  function getData($network_type)
@@ -180,15 +132,13 @@ class NetworkMonitorController extends Controller
 
 			$all_values[] = $value;
 
-			//dd($value);
 			//$address_geocoding = $this->getAddress($value['device_latitude'],$value['device_longitude']);
 			$address_geocoding = 'La Libertad, Santa Tecla';
 
 			$address_parts = explode(',', $address_geocoding, 2);
 
 			$departamento = $address_parts[0];
-			$municipio = $address_parts[1];
-			//$keys_array[] = $key;
+			$municipio = $address_parts[1];			
 
 			if(array_key_exists('cell_asu_level', $value) &&
 			   array_key_exists('cell_signal_strength', $value) &&
@@ -263,54 +213,13 @@ class NetworkMonitorController extends Controller
 					'departamento' => $departamento,
 					'municipio' => $municipio,
 					'created_at' => Carbon::now()
-				];
-
-				/*
-				$obj->cell_asu_level = $value['cell_asu_level'];
-				$obj->cell_signal_strength = $value['cell_signal_strength'];
-				$obj->cell_signal_strength_dbm = $cell_signal_strength_dbm;
-				$obj->data_activity = $value['data_activity'];
-				$obj->data_state = $value['data_state'];
-				$obj->detailed_state = $value['detailed_state'];
-				$obj->download_speed = $value['download_speed'];
-				$obj->extra_info = $value['extra_info'];
-				$obj->is_available = $value['is_available'];
-				$obj->is_connected = $value['is_connected'];
-				$obj->is_failover = $value['is_failover'];
-				$obj->is_network_metered = $value['is_network_metered'];
-				$obj->is_roaming = $value['is_roaming'];
-				$obj->network_mcc = $value['network_mcc'];
-				$obj->network_mnc = $value['network_mnc'];
-				$obj->network_operator = $value['network_operator'];
-				$obj->network_type = $value['network_type'];
-				$obj->sim_mcc = $value['sim_mcc'];
-				$obj->sim_mnc = $value['sim_mnc'];
-				$obj->sim_operator = $value['sim_operator'];
-				$obj->sim_state = $value['sim_state'];
-				$obj->timestamp = $value['timestamp'];
-				$obj->uid = $value['uid'];
-				$obj->address_location = $address_geocoding;
-				$obj->departamento = $departamento;
-				$obj->municipio = $municipio;
-
-				$obj->save();
-				*/
-
-				//dd($obj);
-			}
-
-			//Datapoint::insert($records);
-			//dd($records);
-
-			//$records = $record;
-		}
-
-		//dd($records);
-		Datapoint::insert($records);
-		//$data = collect($all_values);
-		$data = $all_values;
-
-		//dd($data);
+				];			
+			}			
+		}		
+		
+		// Se insertan masivamente los registros, provenientes de Firebase
+		Datapoint::insert($records);		
+		$data = $all_values;		
 
 		return $data;
 	}

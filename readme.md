@@ -11,7 +11,7 @@ Note: Make sure you have git installed locally on your computer first.
 
 Find a location on your computer where you want to store the project. In my case I like all my projects to be a folder called sites/, so that is where I run the following command, which will pull the project from github and create a copy of it on my local computer at the sites directory inside another folder called “projectName”. You can change the name of this folder it creates, by changing the last part of the code snippet below to match the name you want your folder to be called.
 
-<pre><code>git clone https://github.com/edenilson-ruiz/clarproject.git/ projectName</pre></code>
+<pre><code>git clone https://github.com/edenilson-ruiz/ClaroNetwork.git/ projectName</pre></code>
 
 To get the link to the repo, just visit the github page and click on the green “clone or download” button on the right hand side. This will reveal a url that you will replace in the linktogithub.com part of the snippet above.
 
